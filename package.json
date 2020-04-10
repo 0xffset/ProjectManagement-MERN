@@ -1,0 +1,11 @@
+{
+  "name": "project-management-mern",
+  "version": "1.0.0",
+  "description": "This a Projects Management app using MERN desing ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rolEYder",
+  "license": "MIT "
+}
