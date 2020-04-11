@@ -1,18 +1,21 @@
 import User from '../models/users.model';
-import express from 'express';
-const router = express.Router();
 import _ from 'loadsh';
-const userCtrl = {};
-//import erroHandler from './erro.controller';
+
+import errHelpers from '../helpers/dbErrorHandler';
 
 const create = (req, res, next) => {
-    const user = new User(req.body);
-    const {name} = req.body;
-    console.log(name)
+    const objUser = {
+        name: req.query.name,
+        email: req.query.email,
+        password: req.query.password
+    }
+    const user = new User(objUser);
+   
+    console.log(objUser)
     user.save((err, result) => {
         if(err) {
             return res.status(400).json({
-                err
+               err
             })
     
         }
