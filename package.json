@@ -28,6 +28,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.22.0",
+    "loadsh": "0.0.4",
     "mongoose": "^5.9.7",
     "react-hot-loader": "^4.12.20"
   }
