@@ -1,4 +1,4 @@
-import mongo from 'mongoose';
+import mongo, { Mongoose } from 'mongoose';
 const UserSchema = new mongo.Schema({
     name: {
         type: String,
@@ -54,3 +54,14 @@ UserSchema
             return Math.round((new Date().valueOf() * Math.random())) + '';
         }
     }
+
+UserSchema.path('hashed_password').validate((value) => {
+    if(this._password && this._password.length < 6) {
+        this.invalidate('password', 'password must be at least 6 characters.')
+    }
+    if(this.isNew && !this._password) {
+        this.invalidate('password', 'password is required.');
+    }
+}, null)
+
+export default mongo.model('User', UserSchema);
