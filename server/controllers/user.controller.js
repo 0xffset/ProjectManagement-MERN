@@ -15,7 +15,7 @@ const create = (req, res, next) => {
     user.save((err, result) => {
         if(err) {
             return res.status(400).json({
-               err
+             err
             })
     
         }
