@@ -1,6 +1,6 @@
 import express from 'express';
-import userCtrl from '../controllers/user.controller';
-
+import authCtrl from '../controllers/auth.controller';
+import userCtrl from '../controllers/user.controller'
 
 const router = express.Router();
 
@@ -9,6 +9,9 @@ router.route('/api/users', )
     .post(userCtrl.create)
 
 router.route('/api/users/:userId')
+    //.get(authCtrl.signinRequired, authCtrl.read)
+    .put(authCtrl.signinRequired, authCtrl.isAuthorizate, 
+        userCtrl.update)
     .post(userCtrl.update);
 
 export default router;
