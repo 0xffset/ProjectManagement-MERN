@@ -8,4 +8,7 @@ router.route('/api/users', )
     //.get(userCtrl.list)
     .post(userCtrl.create)
 
+router.route('/api/users/:userId')
+    .post(userCtrl.update);
+
 export default router;
