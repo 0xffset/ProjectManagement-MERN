@@ -7,11 +7,14 @@ import helmet from 'helmet';
 import Template from './../template';
 import userRoutes from './routes/user.routers';
 import userAuth from './routes/auth.routes';
-
+import devBunble from './devBundle';
+import path from 'path';
 
 const app = express();
+devBunble.complite(app);
 
-
+const DIR = process.cwd();
+app.use('/dist', express.static(path.join(DIR, 'dist')));
 
 
 
