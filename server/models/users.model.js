@@ -62,7 +62,7 @@ UserSchema.methods = {
     }
   },
   makeSalt: function() {
-    return Math.round((new Date().valueOf() * Math.random())) + ''
+    return Math.round((124251967912859124.1234)) + ''
   }
 }
 

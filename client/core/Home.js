@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button,
     Container,
@@ -39,10 +40,12 @@ const Home = () => (
         color: 'black'
       }}
     />
-    <Button primary size='huge'>
+    <Link to='/signin'>
+      <Button primary size='huge'>
       Get Started
       <Icon name='right arrow' />
     </Button>
+    </Link>
   </Container>
 )
 

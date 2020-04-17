@@ -5,24 +5,16 @@
         .then((res) => {
             return res
         })
-        .catch((err) => console.log(err) )
+        .catch((err) => {return err} )
 }
 
 
-const SignIn = () => {
-    return fetch('/auth/signin/', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify(user)
+const signin = (user) => {
+    return  axios.post(`/auth/signin/?email=${user.email}&password=${user.password}`)
+    .then((res) => {
+        return res.data
     })
-    .then((res) =>{
-        return res.json();
-
-    }).catch((err) => console.log(err));
+    .catch((err) => {return err})
 }
 
 const SignOut = () => {
@@ -34,5 +26,6 @@ const SignOut = () => {
 }
 
 export {
-    createNewUser
+    createNewUser,
+    signin
 }

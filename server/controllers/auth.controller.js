@@ -2,6 +2,7 @@ import User from '../models/users.model';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import config from '../../config/config';
+import crypto from 'crypto';
 
 const signin = (req, res) => {
     User.findOne({
@@ -9,27 +10,32 @@ const signin = (req, res) => {
     }, (err, user) => {
         if(err || !user) {
             return res.status(400).json({
-                err: "User not found"
+                error: "User not found"
             })
         }
-            if(!user.authenticate(req.query.password)) {
-                res.status('401').send({
-                    error: "Email and password not found."
+           
+            if(encryptPassword(req.query.password) == user.hashed_password) {
+               const token = jwt.sign({
+                    _id: user._id
+                }, config.jwSecret)
+    
+                res.cookie("t", token, {
+                    expire: new Date() + 9999
+                })
+    
+                return res.json({
+                    token, 
+                    user: {_id: user._id, name: user.name, email: user.email}
                 })
             }
+            else {
+               return res.status(401).send({
+                    error: "Email and password not found"
+                })  
 
-            const token = jwt.sign({
-                _id: user._id
-            }, config.jwSecret)
-
-            res.cookie("t", token, {
-                expire: new Date() + 9999
-            })
-
-            return res.json({
-                token, 
-                user: {_id: user._id, name: user.name, email: user.email}
-            })
+            }
+          
+            
         
     })
 }
@@ -40,6 +46,21 @@ const signout = (req, res) => {
         message: "Signed out"
     })    
 }
+const encryptPassword = (password) => {
+    if (!password) return ''
+    try {
+      return crypto
+        .createHmac('sha1', makeSalt())
+        .update(password)
+        .digest('hex')
+    } catch (err) {
+      return ''
+    }
+  }
+
+ const makeSalt = () => {
+    return Math.round((124251967912859124.1234)) + ''
+  }
 
 const signinRequired = expressJwt({
     secret: config.jwSecret,

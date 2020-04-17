@@ -30,6 +30,7 @@ const config = {
                 use: 'file-loader'
             }
         ]
+        
     },  plugins: [
           new webpack.HotModuleReplacementPlugin(),
           new webpack.NoEmitOnErrorsPlugin()

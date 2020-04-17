@@ -1,13 +1,13 @@
 
 
-authenticate = (jwt, ch) => {
+const authenticate = (jwt, ch) => {
     if(typeof window !== 'undefined') {
         sessionStorage.setItem('jwt', JSON.stringify(jwt));
         ch()
     }
 }
 
-isAuthenticated = () => {
+const isAuthenticated = () => {
     if (typeof window == 'undefined') {
         return false;
     }
@@ -21,7 +21,7 @@ isAuthenticated = () => {
 
 }
 
-Signout = (ch) => {
+const signout = (ch) => {
     if (typeof window == 'undefined') {
         sessionStorage.removeItem('jwt')
         ch()
@@ -32,4 +32,6 @@ Signout = (ch) => {
     
 }
 
-export {isAuthenticated}
+export  {
+    isAuthenticated
+}

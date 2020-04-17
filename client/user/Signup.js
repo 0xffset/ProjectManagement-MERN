@@ -10,8 +10,8 @@ class SignUp extends Component {
             name: '',
             email: '',
             password: '',
-            open: false,
-            error: ''
+            redirect: false,
+            error: '',
         }
     }
 
@@ -28,6 +28,7 @@ class SignUp extends Component {
        
         createNewUser(user).then((data) => {
             if(data.error) {
+                console.log(data.error)
                 this.setState({error: data.error})
             }
             else {
@@ -70,7 +71,7 @@ class SignUp extends Component {
       </Grid>
 
 
-      <Modal size='mini' open={this.state.open} onClose={false}>
+      <Modal size='mini' open={this.state.open}>
       <Modal.Header>New account </Modal.Header>
       <Modal.Content>
         <p>New account successfully created 👍</p>
