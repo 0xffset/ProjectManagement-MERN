@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -43,6 +44,8 @@
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
     "react-router-dom": "^5.1.2",
+    "rxjs": "^6.5.5",
+    "rxjs-compat": "^6.5.5",
     "semantic-ui-react": "^0.88.2"
   }
 }
