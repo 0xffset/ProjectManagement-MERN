@@ -9,6 +9,7 @@
   "author": "rolEYder",
   "license": "MIT ",
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "babel-core": "^6.26.3",
@@ -35,9 +36,13 @@
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "loadsh": "0.0.4",
+    "material-ui": "^0.20.2",
+    "material-ui-icons": "^1.0.0-beta.36",
     "mongoose": "^5.9.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.12.20"
+    "react-hot-loader": "^4.12.20",
+    "react-router-dom": "^5.1.2",
+    "semantic-ui-react": "^0.88.2"
   }
 }
