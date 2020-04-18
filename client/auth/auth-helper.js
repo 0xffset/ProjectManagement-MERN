@@ -33,5 +33,5 @@ const signout = (ch) => {
 }
 
 export  {
-    isAuthenticated
+    authenticate
 }

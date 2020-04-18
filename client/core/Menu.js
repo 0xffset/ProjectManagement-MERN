@@ -15,24 +15,41 @@ import { Button,
     Visibility} from 'semantic-ui-react';
 
     export default class MenuUI extends Component {
-       state = { activeItem: 'home' }
-      
-        handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+      constructor() {
+        super()
+      }
+      state = { activeItem: 'projects' }
+
+      handleItemClickMenu = (e, { name }) => this.setState({ activeItem: name })
       
         render() {
           const { activeItem } = this.state
-      
           return (
-            <Menu>
-            <Menu.Item>
-              <Button primary>Sign up</Button>
-            </Menu.Item>
-        
-            <Menu.Item>
-              <Button>Log-in</Button>
-            </Menu.Item>
-            
-          </Menu>
+            <div>
+              <Menu pointing secondary size='huge'>
+                
+               
+                <Menu.Item
+                  name='projects'
+                  active={activeItem === 'projects'}
+                  onClick={this.handleItemClickMenu}
+                />
+                <Menu.Item
+                  name='profile'
+                  active={activeItem === 'profile'}
+                  onClick={this.handleItemClickMenu}
+                />
+                <Menu.Menu position='right'>
+                  <Menu.Item
+                    name='logout'
+                    active={activeItem === 'logout'}
+                    onClick={this.handleItemClickMenu}
+                  />
+                </Menu.Menu>
+              </Menu>
+      
+              
+            </div>
           )
         }
       }

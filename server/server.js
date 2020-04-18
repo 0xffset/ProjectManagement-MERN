@@ -5,7 +5,7 @@ import { Template } from 'webpack';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongoUri, {
-    useNewUrlParser: true ,
+     useNewUrlParser: true ,
      useUnifiedTopology: true
 });
 mongoose.set('useCreateIndex', true);

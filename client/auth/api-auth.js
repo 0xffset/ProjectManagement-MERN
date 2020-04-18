@@ -3,7 +3,7 @@
  const createNewUser = (user) => {
   return  axios.post(`/api/users?name=${user.name}&email=${user.email}&password=${user.password }`)
         .then((res) => {
-            return res
+            return res.data;
         })
         .catch((err) => {return err} )
 }

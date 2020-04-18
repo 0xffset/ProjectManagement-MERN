@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {signin} from '../auth/api-auth';
-import {isAuthenticated} from './auth-helper';
-import { Button, Form, Grid, Header, Image, Message, Segment, Modal} from 'semantic-ui-react';
+import {authenticate} from './auth-helper';
+import { Button, Form, Grid, Header, Message, Segment, Modal} from 'semantic-ui-react';
 
 
 class SignIn extends Component {
@@ -31,19 +31,22 @@ class SignIn extends Component {
         }
        
         signin(user).then((data) => {
-            console.log(data)
-            if(!data.error) {
+            // console.log(data)
+            if(data.error) {
                 this.setState({error: data.error})
                 this.setState({open: true})
             }
             else {
-                isAuthenticated(res, () => {
+                console.log(data)
+                authenticate(data, () => {
+                    
                     this.setState({redirect: true})
                 })
                 
                 
             }
-        } )
+        })
+        .catch((err) => console.log(err)) 
     }
 
     render() {
@@ -88,9 +91,9 @@ class SignIn extends Component {
 
 
       <Modal size='mini' open={this.state.open}>
-      <Modal.Header>New account </Modal.Header>
+      <Modal.Header> Error </Modal.Header>
       <Modal.Content>
-        <p>Error</p>
+        <p> Oops!🤔 Check your email and password again.</p>
       </Modal.Content>
       <Modal.Actions>
       
