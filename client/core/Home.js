@@ -19,7 +19,7 @@ const Home = () => (
     <Container text>
     <Header
       as='h1'
-      content='Product Management'
+      content='Projects Management'
       inverted
       style={{
         fontSize:  '4em',
