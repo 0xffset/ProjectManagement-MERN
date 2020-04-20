@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Redirect, Link} from 'react-router-dom';
+import {signout} from '../auth/auth-helper'
 import PropTypes from 'prop-types';
 import { Button,
     Container,
@@ -19,7 +21,10 @@ import { Button,
         super()
       }
       state = { activeItem: 'projects' }
-
+      onSignOut = () => {
+       
+        signout();
+      }
       handleItemClickMenu = (e, { name }) => this.setState({ activeItem: name })
       
         render() {
@@ -38,12 +43,15 @@ import { Button,
                   active={activeItem === 'profile'}
                   onClick={this.handleItemClickMenu}
                 />
+               
                 <Menu.Menu position='right'>
+                <Link to='/'>
                   <Menu.Item
                     name='logout'
                     active={activeItem === 'logout'}
-                    onClick={this.handleItemClickMenu}
+                    onClick={this.onSignOut}
                   />
+                </Link>
                 </Menu.Menu>
               </Menu>
       

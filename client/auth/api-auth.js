@@ -14,7 +14,10 @@ const signin = (user) => {
     .then((res) => {
         return res.data
     })
-    .catch((err) => {return err})
+    .catch((err) => {
+        return JSON.parse(JSON.stringify(err))
+    })
+  
 }
 
 const SignOut = () => {

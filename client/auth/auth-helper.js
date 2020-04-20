@@ -12,7 +12,7 @@ const isAuthenticated = () => {
         return false;
     }
     if(sessionStorage.getItem('jwt'))
-    {
+    {   
         return JSON.parse(sessionStorage.getItem('jwt'))
     }
     else {
@@ -21,18 +21,12 @@ const isAuthenticated = () => {
 
 }
 
-const signout = (ch) => {
-    if (typeof window == 'undefined') {
-        sessionStorage.removeItem('jwt')
-        ch()
-        Signout().then((data) => {
-            document.cookie = "t=; expires=Thu, 01 Jan UTC; path=/;"
-        })
-    }
-    
+const signout = () => {
+        return sessionStorage.removeItem('jwt')
 }
 
 export  {
     authenticate,
-    isAuthenticated
+    isAuthenticated,
+    signout
 }

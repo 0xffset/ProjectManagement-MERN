@@ -22,13 +22,9 @@ import { Button,
     }
 
     render() {
-      if (isAuthenticated) {
-   
-        return <Redirect to='/dashboard' />
       
-      }
-      return (
-        
+return (
+          
 <Container text>
     <Header
       as='h1'
@@ -61,6 +57,8 @@ import { Button,
     </Link>
   </Container>
       )
+    
+      
     }
   }
 
