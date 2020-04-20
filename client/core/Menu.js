@@ -27,8 +27,7 @@ import { Button,
           return (
             <div>
               <Menu pointing secondary size='huge'>
-                
-               
+            
                 <Menu.Item
                   name='projects'
                   active={activeItem === 'projects'}

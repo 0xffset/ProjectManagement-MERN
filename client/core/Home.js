@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {isAuthenticated} from '../auth/auth-helper';
 import { Button,
     Container,
     Divider,
@@ -15,8 +16,20 @@ import { Button,
     Sidebar,
     Visibility} from 'semantic-ui-react';
 
-const Home = () => (
-    <Container text>
+  export default class Home extends Component {
+    constructor() {
+      super() 
+    }
+
+    render() {
+      if (isAuthenticated) {
+   
+        return <Redirect to='/dashboard' />
+      
+      }
+      return (
+        
+<Container text>
     <Header
       as='h1'
       content='Projects Management'
@@ -47,8 +60,8 @@ const Home = () => (
     </Button>
     </Link>
   </Container>
-)
+      )
+    }
+  }
 
 
-
-export default Home;
