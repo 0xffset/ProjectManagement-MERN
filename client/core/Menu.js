@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
-import {signout} from '../auth/auth-helper'
+import {signout, isAuthenticated} from '../auth/auth-helper'
 import PropTypes from 'prop-types';
 import { Button,
     Container,
@@ -38,12 +38,14 @@ import { Button,
                   active={activeItem === 'projects'}
                   onClick={this.handleItemClickMenu}
                 />
+                <Link to={"/profile/" + isAuthenticated().user._id }>
                 <Menu.Item
                   name='profile'
                   active={activeItem === 'profile'}
                   onClick={this.handleItemClickMenu}
                 />
                
+                </Link>
                 <Menu.Menu position='right'>
                 <Link to='/'>
                   <Menu.Item

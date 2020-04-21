@@ -64,8 +64,8 @@ const encryptPassword = (password) => {
 
 const signinRequired = expressJwt({
     secret: config.jwSecret,
-    userProperty: 'auth'
-})
+    
+});
 const isAuthorizate = (req, res, next) => {
     const obj = {
         name: req.query.name,

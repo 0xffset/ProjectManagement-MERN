@@ -42,5 +42,25 @@ const update = (req, res, next) => {
     user.hashed_password = undefined;
     res.json(user); 
 }
+const findUser = (req, res, id) => {
+    console.log(req.params.userId)
+    User.find({_id: req.params.userId}).exec((err, user) => {
+        if (err || !user) {
+            return res.status('400').json({
+                error: "User not found"
+            })}
 
-export default {create, update}
+            else {
+                return res.json({
+                    User: user
+                })
+            }
+    })
+}
+const readUser = (req, res) => {
+    req.pofile.hashed_password = undefined;
+    req.pofile.salt = undefined;
+    return res.json(req.profile);
+}
+
+export default {create, update, readUser, findUser}
