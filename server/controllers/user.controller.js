@@ -10,8 +10,6 @@ const create = (req, res, next) => {
         password: req.query.password
     }
     const user = new User(objUser);
-   
-    console.log(objUser)
     user.save((err, result) => {
         if(err) {
             return res.status(400).json({
@@ -32,15 +30,32 @@ const update = (req, res, next) => {
         updated: Date.now()
     }
     const user = new User(objUser);
-    user = _.extend(user, req.body);
-    user.save((err) => {
-        return res.status(400).json({
-            err
+    
+    User.findById(req.params.userIdEdit, (err, doc) => {
+        if (err) {
+            res.status(400).json({
+                err
+            })
+        }
+        doc.name = req.query.name;
+        doc.email = req.query.email;
+        doc.password = req.query.password;
+        doc.updated  = objUser.updated;
+        doc.save((err) => {
+            if(err) {
+                res.status(400).json({
+                    err
+                })
+            }
+            doc.hashed_password = undefined;
+            doc.salt = undefined;
+            return res.status(200).json({
+                message: "Updated successfully",
+                user: user
+            })
         })
-    })
-    user.password = undefined;
-    user.hashed_password = undefined;
-    res.json(user); 
+
+    })       
 }
 const findUser = (req, res, id) => {
     console.log(req.params.userId)
