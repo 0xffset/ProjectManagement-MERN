@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import { Card, Icon, Image, Grid, Modal, Form, Input,  Container, Button,  } from 'semantic-ui-react'
-import {fetchDataUser} from './api-user';
+import {fetchDataUser, updateUser} from './api-user';
 
 import Moment from 'react-moment';
 import Menu from '../core/Menu';
 import ProfileLoader from '../user/placeholders/ProfileLoader'
+import { Redirect } from 'react-router-dom';
 
 export default class Profile extends Component {
 
@@ -13,19 +14,52 @@ export default class Profile extends Component {
         super()
         this.state = {
           user: null,
+          name: '',
+          email: '',
+          password: '',
           open: false,
           error: [],
           loading: true
         }
+
+        
         this.match = match
     }
+onClickSubmitUpdate = () => {
+  const updateObj = {
+    name:  this.state.name || undefined,
+    email: this.state.email || undefined,
+    password: this.state.password || undefined,
+    id: this.match.params.userId
+  }
+
+  updateUser(updateObj)
+    .then(data => {
+      if(data.err) {
+        this.setState({error: data.err})
+      }
+      else {
+        this.setState({error: ''})
+       return  <Redirect to={'/dashboard/'}/>
+      }
+    })
+     
+
+}
+
+handlerSubmitUpdate = name =>  event => {
+  this.setState({[name]: event.target.value})
+}
 
 onShowEditModal = () => {
   this.setState({open: true})
+  
 }
 onCloseEditModa = () => {
   this.setState({open: false})
 }
+
+onc
   
 componentDidMount = () => {
     fetchDataUser(this.props.match.params.userId)
@@ -108,15 +142,17 @@ componentDidMount = () => {
         id='form-input-control-first-name'
         control={Input}
         label=' Name'
-        
-        placeholder={this.state.user !== null ?  this.state.user.User[0].name : ""}
+        onChange={this.handlerSubmitUpdate('name')}
+        placeholder='Name'
+        defaultValue={this.state.user !== null ?  this.state.user.User[0].name : ""}
               />
     <Form.Field
         id='form-input-control-first-name'
         control={Input}
         label='New Password'
         type='password'
-        placeholder='*******'
+        obChange={this.handlerSubmitUpdate('password')}
+        placeholder='Empty: old password'
       />
      
     </Form.Group>
@@ -125,7 +161,9 @@ componentDidMount = () => {
       id='form-input-control-error-email'
       control={Input}
       label='Email'
-      placeholder={this.state.user !== null ?  this.state.user.User[0].email : ""}
+      placeholder='Email'
+      onChange={this.handlerSubmitUpdate('email')}
+      defaultValue={this.state.user !== null ?  this.state.user.User[0].email : ""}
       error={{
         content: 'Please enter a valid email address',
         pointing: 'below',
@@ -135,6 +173,7 @@ componentDidMount = () => {
       id='form-input-control-error-email'
       control={Input}
       label='GitHub Repository'
+    
       placeholder='https://github.com/username'
       error={{
         content: 'Please enter a valid email GitHub repository',
@@ -151,7 +190,7 @@ componentDidMount = () => {
               icon='checkmark'
               labelPosition='right'
               content="Update!"
-              onClick={this.onCloseEditModa}
+              onClick={this.onClickSubmitUpdate}
             />
           </Modal.Actions>
         </Modal>

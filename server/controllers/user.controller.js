@@ -33,7 +33,7 @@ const update = (req, res, next) => {
     
     User.findById(req.params.userIdEdit, (err, doc) => {
         if (err) {
-            res.status(400).json({
+             res.status(400).json({
                 err
             })
         }
@@ -47,13 +47,14 @@ const update = (req, res, next) => {
                     err
                 })
             }
-            doc.hashed_password = undefined;
-            doc.salt = undefined;
-            return res.status(200).json({
-                message: "Updated successfully",
-                user: user
-            })
-        })
+            else {
+                res.json({
+                    message: "Updated successfully",
+                    user: doc
+                })
+                return next();
+            }
+         })
 
     })       
 }

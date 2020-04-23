@@ -7,6 +7,14 @@ const fetchDataUser = (idUser) => {
         })
 }
 
+const updateUser = (obj) => {
+    return axios.post(`/api/edit/user/${obj.id}?name=${obj.name}&email=${obj.email}&password=${obj.password}`)
+        .then(res => {
+            return res.data
+        })
+}
+
 export {
-    fetchDataUser
+    fetchDataUser,
+    updateUser
 }
