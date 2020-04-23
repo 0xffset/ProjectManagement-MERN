@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Redirect, Link} from 'react-router-dom';
+import {Redirect, Link, withRouter} from 'react-router-dom';
 import {signout, isAuthenticated} from '../auth/auth-helper'
 import PropTypes from 'prop-types';
 import { Button,
@@ -15,6 +15,7 @@ import { Button,
     Segment,
     Sidebar,
     Visibility} from 'semantic-ui-react';
+
 
     export default class MenuUI extends Component {
       constructor() {
@@ -33,11 +34,13 @@ import { Button,
             <div>
               <Menu pointing secondary size='huge'>
             
-                <Menu.Item
+               <Link to='/dashboard'>
+               <Menu.Item
                   name='projects'
                   active={activeItem === 'projects'}
                   onClick={this.handleItemClickMenu}
                 />
+               </Link>
                 <Link to={"/profile/" + isAuthenticated().user._id }>
                 <Menu.Item
                   name='profile'
@@ -63,3 +66,4 @@ import { Button,
         }
       }
   
+      
