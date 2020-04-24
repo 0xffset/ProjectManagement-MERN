@@ -1,87 +1,85 @@
-import React, {Component} from 'react'
+import React, {Component, useState, useEffect} from 'react'
 import { Card, Icon, Image, Grid, Modal, Form, Input,  Container, Button,  } from 'semantic-ui-react'
 import {fetchDataUser, updateUser} from './api-user';
-
+import {isAuthenticated} from '../auth/auth-helper'
 import Moment from 'react-moment';
 import Menu from '../core/Menu';
 import ProfileLoader from '../user/placeholders/ProfileLoader'
 import { Redirect } from 'react-router-dom';
 
-export default class Profile extends Component {
+export default function Profile({match}) {
+    const jwt = isAuthenticated();
+    const [values, setValues] = useState({
+        error: '',
+        loading: true,
+        open: false
+        })
 
-    _isMounted = true
-    constructor({match}) {
-        super()
-        this.state = {
-          user: null,
+        const [update, setUpdate] = useState({
           name: '',
-          email: '',
           password: '',
-          open: false,
-          error: [],
-          loading: true
-        }
+          email: '',
+          error: ''
+        })
 
-        
-        this.match = match
-    }
-onClickSubmitUpdate = () => {
+const [Data, setData] = useState('')
+const [DataChanged, DataChangedUpdate ] = useState(0)
+
+const onClickSubmitUpdate = () => {
   const updateObj = {
-    name:  this.state.name || undefined,
-    email: this.state.email || undefined,
-    password: this.state.password || undefined,
-    id: this.match.params.userId
+    name:  update.name || undefined,
+    email:  update.email|| undefined,
+    password: update.password || undefined,
+    id: match.params.userId
   }
 
-  updateUser(updateObj)
+   updateUser(updateObj)
     .then(data => {
       if(data.err) {
-        this.setState({error: data.err})
+        setUpdate({...update, error: data.err})
       }
       else {
-        this.setState({error: ''})
-       return  <Redirect to={'/dashboard/'}/>
+        setUpdate({error: ''})
+        jwt.user.name = String(updateObj.name);
+       <Redirect to={'/dashboard/'}/>
       }
     })
-     
-
 }
 
-handlerSubmitUpdate = name =>  event => {
-  this.setState({[name]: event.target.value})
+const handlerSubmitUpdate = name =>  event => {
+setUpdate({...update, [name]: event.target.value})
 }
 
-onShowEditModal = () => {
-  this.setState({open: true})
+const onShowEditModal = () => {
+  setValues({open: true})
   
 }
-onCloseEditModa = () => {
-  this.setState({open: false})
+const onCloseEditModa = () => {
+  setValues({open: false})
 }
 
-onc
-  
-componentDidMount = () => {
-    fetchDataUser(this.props.match.params.userId)
-      .then(data => {
-        setTimeout(() => {
+useEffect(() => {
+  fetchDataUser(match.params.userId)
+  .then(data => {
+    setTimeout(() => {
+      setData(data)
+      setUpdate({name : data.User[0].name,
+                password: data.User[0].password,
+                email: data.User[0].email})
+      setValues({loading: false})
+    }, 3000)
+  })
+    .catch((err) => {})
 
-          this.setState(
-            {user: data,
-              loading: false
-            })
-        }, 3000)
-      });
-   }
- 
-     render() {
-      return (
+},[DataChanged])
+
+return (
         <div>
          
           <div>
             <Menu />
  <Container  style={{marginTop: '30px', align: 'center'}}>
- {this.state.loading ? (
+ {values.loading ? (
           <>      <Card centered>
                   <ProfileLoader />
                   </Card>
@@ -92,18 +90,18 @@ componentDidMount = () => {
       
       <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
       <Card.Content>
-          <Card.Header>{this.state.user !== null ?  this.state.user.User[0].name : ""}</Card.Header>
+        <Card.Header>{Data.User[0].name}</Card.Header>
         <Card.Meta>
         <span className='date'> {"Joined: "} 
   
           <Moment format="dd mm YYYY HH:mm"> 
-            {this.state.user !== null ?  this.state.user.User[0].created : ""} 
+            {Data.User[0].created}
           </Moment>
           </span>
          
         </Card.Meta>
         <Card.Description>
-        {this.state.user !== null ?  this.state.user.User[0].email : ""}
+       {Data.User[0].email}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
@@ -117,7 +115,7 @@ componentDidMount = () => {
    <Grid>
       <Grid.Column textAlign="center">
       <Button positive
-      onClick={this.onShowEditModal}
+      onClick={onShowEditModal}
       >Edit</Button>
       
       </Grid.Column>
@@ -126,7 +124,7 @@ componentDidMount = () => {
         </>) }
   
   {/* Modal edit */}
-  <Modal dimmer={'blurring'} open={this.state.open} onClose={this.onCloseEditModa}>
+  <Modal dimmer={'blurring'} open={values.open} onClose={onCloseEditModa}>
           <Modal.Header>Edit profile</Modal.Header>
           <Modal.Content image>
             <Image
@@ -141,17 +139,19 @@ componentDidMount = () => {
       <Form.Field
         id='form-input-control-first-name'
         control={Input}
-        label=' Name'
-        onChange={this.handlerSubmitUpdate('name')}
+        label="Name"
+        value={update.name }
+        onChange={handlerSubmitUpdate('name')}
         placeholder='Name'
-        defaultValue={this.state.user !== null ?  this.state.user.User[0].name : ""}
+        
+        
               />
     <Form.Field
         id='form-input-control-first-name'
         control={Input}
         label='New Password'
         type='password'
-        obChange={this.handlerSubmitUpdate('password')}
+        obChange={handlerSubmitUpdate('password')}
         placeholder='Empty: old password'
       />
      
@@ -162,8 +162,10 @@ componentDidMount = () => {
       control={Input}
       label='Email'
       placeholder='Email'
-      onChange={this.handlerSubmitUpdate('email')}
-      defaultValue={this.state.user !== null ?  this.state.user.User[0].email : ""}
+
+      onChange={handlerSubmitUpdate('email')}
+      value={update.email}
+  
       error={{
         content: 'Please enter a valid email address',
         pointing: 'below',
@@ -173,7 +175,7 @@ componentDidMount = () => {
       id='form-input-control-error-email'
       control={Input}
       label='GitHub Repository'
-    
+      value={Data.User == null ? "" : Data.User[0].email}
       placeholder='https://github.com/username'
       error={{
         content: 'Please enter a valid email GitHub repository',
@@ -190,7 +192,7 @@ componentDidMount = () => {
               icon='checkmark'
               labelPosition='right'
               content="Update!"
-              onClick={this.onClickSubmitUpdate}
+              onClick={onClickSubmitUpdate}
             />
           </Modal.Actions>
         </Modal>
@@ -200,5 +202,5 @@ componentDidMount = () => {
           </div> 
         </div>
       )
-    }
+    
 }
