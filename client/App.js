@@ -12,8 +12,8 @@ import {isAuthenticated} from './auth/auth-helper';
 import editProfileModal from './core/editProfile.modal';
 
 const App = (
-   <BrowserRouter>
-    <div>
+  <div>
+     <BrowserRouter>
         
           <Route path='/' render={() => (
                 isAuthenticated() ? (
@@ -30,7 +30,8 @@ const App = (
           <Route path='/user/edit/:userId' component={editProfileModal} /> 
 
        
+          </BrowserRouter>
+
     </div>
-   </BrowserRouter>
 )
 export default App

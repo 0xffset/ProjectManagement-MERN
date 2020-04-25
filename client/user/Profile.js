@@ -1,15 +1,13 @@
-import React, {Component, useState, useEffect} from 'react'
+import React, { useState, useEffect} from 'react'
 import { Card, Icon, Image, Grid, Modal, Form, Input,  Container, Button,  } from 'semantic-ui-react'
 import {fetchDataUser, updateUser} from './api-user';
-import {isAuthenticated} from '../auth/auth-helper'
 import Moment from 'react-moment';
 import Menu from '../core/Menu';
 import ProfileLoader from '../user/placeholders/ProfileLoader'
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom'
 
 export default function Profile({match}) {
-    const jwt = isAuthenticated();
-    const [values, setValues] = useState({
+   const [values, setValues] = useState({
         error: '',
         loading: true,
         open: false
@@ -39,9 +37,9 @@ const onClickSubmitUpdate = () => {
         setUpdate({...update, error: data.err})
       }
       else {
-        setUpdate({error: ''})
-        jwt.user.name = String(updateObj.name);
-       <Redirect to={'/dashboard/'}/>
+        setUpdate({error: ''});
+        setValues({open: false});
+        <Redirect to='/' />
       }
     })
 }
@@ -151,7 +149,7 @@ return (
         control={Input}
         label='New Password'
         type='password'
-        obChange={handlerSubmitUpdate('password')}
+        onChange={handlerSubmitUpdate('password')}
         placeholder='Empty: old password'
       />
      

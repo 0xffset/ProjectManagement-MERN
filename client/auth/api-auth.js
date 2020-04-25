@@ -1,7 +1,7 @@
  import axios from 'axios';
  
  const createNewUser = (user) => {
-  return  axios.post(`/api/users?name=${user.name}&email=${user.email}&password=${user.password }`)
+  return  axios.post(`/api/users?name=${user.name}&email=${user.email}&password=${user.password}`)
         .then((res) => {
             return res.data;
         })

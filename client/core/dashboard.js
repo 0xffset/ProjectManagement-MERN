@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Checkbox, Icon, Table, Container} from 'semantic-ui-react';
-import {signout} from '../auth/auth-helper'
+import { Button, Icon, Table, Container} from 'semantic-ui-react';
 import MenuUI from './Menu';
 
 export default class Dashboard extends Component {

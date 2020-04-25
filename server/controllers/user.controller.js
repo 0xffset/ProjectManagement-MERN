@@ -29,9 +29,8 @@ const update = (req, res, next) => {
         password: req.query.password,
         updated: Date.now()
     }
-    const user = new User(objUser);
-    
-    User.findById(req.params.userIdEdit, (err, doc) => {
+   
+     User.findById(req.params.userIdEdit, (err, doc) => {
         if (err) {
              res.status(400).json({
                 err
@@ -39,7 +38,11 @@ const update = (req, res, next) => {
         }
         doc.name = req.query.name;
         doc.email = req.query.email;
-        doc.password = req.query.password;
+        if( req.query.password !== 'undefined')  {
+            doc.password = req.query.password
+            console.log(req.query.password)   
+        }
+        
         doc.updated  = objUser.updated;
         doc.save((err) => {
             if(err) {
@@ -59,8 +62,7 @@ const update = (req, res, next) => {
     })       
 }
 const findUser = (req, res, id) => {
-    console.log(req.params.userId)
-    User.find({_id: req.params.userId}).exec((err, user) => {
+        User.find({_id: req.params.userId}).exec((err, user) => {
         if (err || !user) {
             return res.status('400').json({
                 error: "User not found"
