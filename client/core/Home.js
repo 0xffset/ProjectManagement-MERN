@@ -26,6 +26,7 @@ import { Button,
 return (
           
 <Container text>
+  
     <Header
       as='h1'
       content='Projects Management'
@@ -38,6 +39,11 @@ return (
         color: 'black'
       }}
     />
+    <>
+    <div style={{left: '100px', position: 'absolute'}}>
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/RolEYder/ProjectManagement-MERN?style=social"/>
+    </div>
+     </> 
     <Header
       as='h2'
       content='Manage your GitHub projects.'
