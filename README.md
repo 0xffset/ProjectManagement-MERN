@@ -1,4 +1,4 @@
-# ProjectManagement-MERN
+# ProjectManagement-MERN ![GitHub repo size](https://img.shields.io/github/repo-size/RolEYder/ProjectManagement-MERN?color=green&style=flat-square)
 
 ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/RolEYder/ProjectManagement-MERN/react)
 ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/RolEYder/ProjectManagement-MERN/express)
