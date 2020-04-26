@@ -9,7 +9,7 @@ import SignIn from './auth/Signin';
 import Dashboard from './core/dashboard';
 import {isAuthenticated} from './auth/auth-helper';
 //Modals
-import editProfileModal from './core/editProfile.modal';
+import viewDatails from './core/viewDetailsProjects'
 
 const App = (
   <div>
@@ -27,8 +27,9 @@ const App = (
           <Route path='/dashboard' exact component={Dashboard} />
           <Route path='/signup' exact component={SignUp} />
           <Route path='/signin'  component={SignIn} />
-          <Route path='/user/edit/:userId' component={editProfileModal} /> 
-
+          <Route path='/view'  component={viewDatails} />
+       
+          
        
           </BrowserRouter>
 

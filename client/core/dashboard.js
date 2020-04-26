@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
-import { Button, Icon, Table, Container} from 'semantic-ui-react';
+import {Segment, Responsive, Button, Icon, Table, Container} from 'semantic-ui-react';
 import MenuUI from './Menu';
 
+
+//__test__
+import {Projects} from '../__test__/projects.json.json'
 export default class Dashboard extends Component {
     constructor() {
         super()
+        this.state =({
+          open: true
+        })
       }
+      
     
-    render() {
+render() {
       
         return (
 <div>
 <MenuUI />
+
+
 <Container className='containerDashboard' style={{marginTop : '30px'}} >
 <Table celled compact definition>
     <Table.Header fullWidth>
@@ -25,32 +34,24 @@ export default class Dashboard extends Component {
     </Table.Header>
 
     <Table.Body>
-      <Table.Row>
-        <Table.Cell collapsing>
-        <Button size='small'>Detail</Button>
-        </Table.Cell>
-        <Table.Cell>GreenTree</Table.Cell>
-        <Table.Cell>Safe the world using machine learning</Table.Cell>
-        <Table.Cell>JavaScript</Table.Cell>
-        <Table.Cell>www.test.com</Table.Cell>
-      </Table.Row>
+      {Projects.map(project => 
+         <Table.Row  key={project._id}> 
+         <Table.Cell collapsing>
+         <Button size='small'>Detail</Button>
+         </Table.Cell>
+         <Table.Cell>{project.Name}</Table.Cell>
+         <Table.Cell>{project.Description}</Table.Cell>
+         <Table.Cell>{project.Language}</Table.Cell>
+         <Table.Cell><a href={project.GitHubRepo} target='_blank'>{project.GitHubRepo}</a></Table.Cell>
+       </Table.Row>
+        )}
+     
     </Table.Body>
-
-    <Table.Footer fullWidth>
+     <Table.Footer fullWidth>
       <Table.Row>
         <Table.HeaderCell />
         <Table.HeaderCell colSpan='4'>
-          <Button
-            floated='right'
-            icon
-            labelPosition='left'
-            secondary
-            size='small'
-          >
-            <Icon name='github'/> Add project
-          </Button>
-        
-          
+       
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>
