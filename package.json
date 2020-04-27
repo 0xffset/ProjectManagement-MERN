@@ -2,10 +2,12 @@
   "name": "project-management-mern",
   "version": "1.0.0",
   "description": "This a Projects Management app using MERN desing ",
+  "main": "./dist/server.generated.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "start": "nodemon"
+    "build": "webpack --config webpack.config.client.production.js && webpack --mode=production --config webpack.config.server.js",
+    "start": "NODE_ENV=production node ./dist/server.generated.js"
   },
   "author": "rolEYder",
   "license": "MIT ",
