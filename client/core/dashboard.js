@@ -31,8 +31,7 @@ componentDidMount() {
         .then((repos) => {
           this.setState({repos: repos.data})
       })
-      console.log(this.state.repos)
-}
+  }
 
   render() {
 
