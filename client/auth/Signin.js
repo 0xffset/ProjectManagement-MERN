@@ -42,14 +42,11 @@ class SignIn extends Component {
 
         }
         else {
-          console.log(data)
           authenticate(data, () => {
-
             this.setState({ redirect: true })
+          
           })
-
-
-        }
+       }
       })
 
 
@@ -61,7 +58,8 @@ class SignIn extends Component {
       from: { pathname: '/dashboard' }
     }
     const { redirect } = this.state
-    if (redirect) {
+    if (this.state.redirect) {
+      console.log(redirect)
       return (<Redirect to={from} />)
     }
 

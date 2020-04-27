@@ -25,7 +25,7 @@ const signin = (req, res) => {
     
                 return res.json({
                     token, 
-                    user: {_id: user._id, name: user.name, githubname: user.github_name,email: user.email}
+                    user: {_id: user._id, name: user.name, github_name: user.github_name,email: user.email}
                 })
             }
             else {
