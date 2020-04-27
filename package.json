@@ -4,7 +4,8 @@
   "description": "This a Projects Management app using MERN desing ",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "nodemon"
   },
   "author": "rolEYder",
   "license": "MIT ",
