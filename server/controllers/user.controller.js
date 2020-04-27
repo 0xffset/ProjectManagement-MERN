@@ -7,7 +7,8 @@ const create = (req, res, next) => {
     const objUser = {
         name: req.query.name,
         email: req.query.email,
-        password: req.query.password
+        password: req.query.password,
+        github_name: req.query.githubname
     }
     const user = new User(objUser);
     user.save((err, result) => {

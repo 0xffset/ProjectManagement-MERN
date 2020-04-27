@@ -10,6 +10,7 @@ class SignUp extends Component {
             name: '',
             email: '',
             password: '',
+            github_name: '',
             redirect: false,
             error: '',
         }
@@ -24,6 +25,7 @@ class SignUp extends Component {
             name: this.state.name || undefined,
             email: this.state.email || undefined,
             password: this.state.password || undefined,
+            githubname: this.state.github_name || undefined
         }
        
         createNewUser(user).then((data) => {
@@ -49,6 +51,7 @@ class SignUp extends Component {
           <Form size='large'>
             <Segment stacked>
             <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' onChange={this.handlerSubmit('name')} />
+            <Form.Input fluid icon='github' iconPosition='left' placeholder='GitHub Name' onChange={this.handlerSubmit('github_name')} />
               <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address'  onChange={this.handlerSubmit('email')} />
               <Form.Input
                 fluid

@@ -14,6 +14,12 @@ const UserSchema = new mongoose.Schema({
     match: [/.+\@.+\..+/, 'Please fill a valid email address'],
     required: 'Email is required'
   },
+  github_name: {
+    type: String,
+    trim: true,
+    unique: 'GitHub user already exists',
+    required: 'GitHub user is required'
+  },
   hashed_password: {
     type: String,
     required: "Password is required"
