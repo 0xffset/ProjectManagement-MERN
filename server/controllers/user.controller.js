@@ -39,9 +39,9 @@ const update = (req, res, next) => {
         }
         doc.name = req.query.name;
         doc.email = req.query.email;
+        doc.github_name = req.query.githubname;
         if( req.query.password !== 'undefined')  {
             doc.password = req.query.password
-            console.log(req.query.password)   
         }
         
         doc.updated  = objUser.updated;

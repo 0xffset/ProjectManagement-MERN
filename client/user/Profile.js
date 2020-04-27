@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import Menu from '../core/Menu';
 import ProfileLoader from '../user/placeholders/ProfileLoader'
 import {Redirect} from 'react-router-dom'
+import {authenticate} from '../auth/auth-helper'
 
 export default function Profile({match}) {
    const [values, setValues] = useState({
@@ -17,6 +18,7 @@ export default function Profile({match}) {
           name: '',
           password: '',
           email: '',
+          github_name: '',
           error: ''
         })
 
@@ -28,6 +30,7 @@ const onClickSubmitUpdate = () => {
     name:  update.name || undefined,
     email:  update.email|| undefined,
     password: update.password || undefined,
+    githubname: update.github_name || undefined,
     id: match.params.userId
   }
 
@@ -35,9 +38,11 @@ const onClickSubmitUpdate = () => {
     .then(data => {
       if(data.err) {
         setUpdate({...update, error: data.err})
+        
       }
       else {
         setUpdate({error: ''});
+        authenticate(data)
         setValues({open: false});
         <Redirect to='/' />
       }
@@ -63,7 +68,8 @@ useEffect(() => {
       setData(data)
       setUpdate({name : data.User[0].name,
                 password: data.User[0].password,
-                email: data.User[0].email})
+                email: data.User[0].email,
+                github_name: data.User[0].github_name})
       setValues({loading: false})
     }, 3000)
   })
@@ -85,7 +91,7 @@ return (
         ) : (
         <>
           <Card centered>
-      
+     
       <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
       <Card.Content>
         <Card.Header>{Data.User[0].name}</Card.Header>
@@ -144,8 +150,18 @@ return (
         
         
               />
+        <Form.Field
+        id='form-input-control-githuname-name'
+        control={Input}
+        label="GitHub name"
+        value={update.github_name}
+        onChange={handlerSubmitUpdate('github_name')}
+        placeholder='Github name'
+        
+        
+              />
     <Form.Field
-        id='form-input-control-first-name'
+        id='form-input-control-password'
         control={Input}
         label='New Password'
         type='password'
@@ -156,7 +172,7 @@ return (
     </Form.Group>
     
     <Form.Field
-      id='form-input-control-error-email'
+      id='form-input-control-email'
       control={Input}
       label='Email'
       placeholder='Email'
@@ -164,22 +180,14 @@ return (
       onChange={handlerSubmitUpdate('email')}
       value={update.email}
   
-      error={{
-        content: 'Please enter a valid email address',
-        pointing: 'below',
-      }}
     />
     <Form.Field
-      id='form-input-control-error-email'
+      id='form-input-control-repository'
       control={Input}
       label='GitHub Repository'
-      value={Data.User == null ? "" : Data.User[0].email}
-      placeholder='https://github.com/username'
-      error={{
-        content: 'Please enter a valid email GitHub repository',
-        pointing: 'below',
-      }}
-    />
+      value={Data.User == null ? "" : `https://github.com/${update.github_name}`}
+      readOnly
+      />
   </Form>
             </Modal.Description>
           </Modal.Content>

@@ -11,6 +11,7 @@ export default class Dashboard extends Component {
     super()
     this.state = ({
       open: true,
+      error: [],
       repos: []
     })
    
@@ -27,9 +28,13 @@ let lan = {
 }
 
 componentDidMount() {
-      axios.get(`https://api.github.com/users/${isAuthenticated().user.githubname}/repos`)
+      axios.get(`https://api.github.com/users/${isAuthenticated().user.github_name}/repos`)
         .then((repos) => {
-          this.setState({repos: repos.data})
+            this.setState({repos: repos.data})
+      })
+      .catch((err) => {
+          this.setState({error: err})
+          console.log(this.state.error)
       })
   }
 
@@ -64,6 +69,23 @@ componentDidMount() {
               )}
 
             </Table.Body>
+
+              {this.state.error ? (<><h4>Check you GitHub Name</h4></>) : (<>
+              <Table.Body>
+              {this.state.repos.map(repos =>
+                <Table.Row key={repos.id}>
+                  <Table.Cell collapsing>
+                    <Button size='small'>Detail</Button>
+                  </Table.Cell>
+              <Table.Cell>{repos.name} {repos.fork ? (<Icon name='fork'/>) : (<></>) }</Table.Cell>
+                  <Table.Cell>{repos.description}</Table.Cell>
+              <Table.Cell>{repos.language}<Icon name={`${this.getLanguageIcon(repos.language)}`}/></Table.Cell>
+                  <Table.Cell><a href={repos.html_url} target='_blank'>{repos.html_url}</a></Table.Cell>
+                </Table.Row>
+              )}
+
+            </Table.Body>
+            </>) }
             <Table.Footer fullWidth>
               <Table.Row>
                 <Table.HeaderCell />

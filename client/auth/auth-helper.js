@@ -3,7 +3,7 @@
 const authenticate = (jwt, ch) => {
     if(typeof window !== 'undefined') {
         sessionStorage.setItem('jwt', JSON.stringify(jwt));
-        ch()
+        
     }
 }
 
