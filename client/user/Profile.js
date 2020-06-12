@@ -42,9 +42,11 @@ const onClickSubmitUpdate = () => {
       }
       else {
         setUpdate({error: ''});
-        authenticate(data)
-        setValues({open: false});
-        <Redirect to='/' />
+        authenticate(data, () => {
+          setValues({open: false});
+          <Redirect to='/' />
+        })
+      
       }
     })
 }

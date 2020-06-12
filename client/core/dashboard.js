@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import { Segment, Responsive, Button, Icon, Table, Container } from 'semantic-ui-react';
 import MenuUI from './Menu';
 import {isAuthenticated} from '../auth/auth-helper';
@@ -38,6 +39,10 @@ componentDidMount() {
       })
   }
 
+  goContent(path) {
+    return <Link to={path}/>
+  }
+
   render() {
 
     return (
@@ -59,7 +64,8 @@ componentDidMount() {
               {this.state.repos.map(repos =>
                 <Table.Row key={repos.id}>
                   <Table.Cell collapsing>
-                    <Button size='small'>Detail</Button>
+                    
+         <Link to={`/content/repo/${isAuthenticated().user.github_name}/`  + repos.name}><Button size='small'>Detail</Button></Link>
                   </Table.Cell>
               <Table.Cell>{repos.name} {repos.fork ? (<Icon name='fork'/>) : (<></>) }</Table.Cell>
                   <Table.Cell>{repos.description}</Table.Cell>

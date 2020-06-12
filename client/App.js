@@ -8,6 +8,7 @@ import Profile from './user/Profile';
 import SignIn from './auth/Signin';
 import Dashboard from './core/dashboard';
 import {isAuthenticated} from './auth/auth-helper';
+import ContentPath from './user/Content.path'
 //Modals
 import viewDatails from './core/viewDetailsProjects'
 
@@ -28,6 +29,7 @@ const App = (
           <Route path='/signup' exact component={SignUp} />
           <Route path='/signin'  component={SignIn} />
           <Route path='/view'  component={viewDatails} />
+          <Route path='/content/repo/:repoUser/:repoName'  component={ContentPath} />
        
           
        
