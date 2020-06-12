@@ -8,6 +8,10 @@
 ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/RolEYder/ProjectManagement-MERN/express-jwt)
 ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/RolEYder/ProjectManagement-MERN/axios)
 
+
+<img src='docs/image.PNG' width='500'></img>
+
+
 #### Simple MENR App to view all repos that you have on GitHub.
 
   
