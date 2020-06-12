@@ -12,7 +12,7 @@
 <img src='docs/image.PNG' width='500'></img>
 
 
-#### Simple MENR App to view all repos that you have on GitHub.
+#### Simple MERN App to view all repos that you have on GitHub.
 
   
 
